@@ -1,0 +1,87 @@
+mean = True
+while mean == True:
+  input_mean = input("Please input mean between minus infinity to plus infinity (Default=0): ")
+  if len(input_mean)==0:
+    input_mean = 0
+    mean = False
+    print ("--> You pressed enter, the mean will be set to 0.")
+    break
+  try:
+    input_mean = float(input_mean)
+  except ValueError:
+    print ("Err:Your input is not numeric.")
+  else:
+    print(f"--> The mean you have entered is: {input_mean}")
+    mean = True
+    break
+  
+variance = True
+while variance == True:   
+  print (f"")
+  input_variance = input("Please input variance which must be larger than 0 (Default=1): ")
+  if len(input_variance)==0:
+    input_variance = 1
+    variance = False
+    print ("--> You pressed enter, the variance will be set to 1.")  
+    break
+  try:
+    input_variance = float(input_variance)
+  except ValueError:
+    print ("Err:Your input is not numeric.")
+  else:
+    if input_variance > 0:
+      print(f"--> The variance you have entered is: {input_variance}")
+      Variance = True
+      break
+    elif input_variance < 0:
+      mean = False
+      print (f"Err:Try again, you have input a negative value.")
+      
+      
+      
+input_X = True
+while input_X == True:
+  print (f"")
+  input_x =  input("Please input value of X between minus infinity to plus infinity: ")
+  try:
+    input_x =float(input_x)
+  except ValueError:
+    print("Err:Your input is not numeric, please try again.")
+  else:
+    input_X =False
+    print (f"--> Your input for X is: {input_x}")
+    
+    
+    
+from math import exp
+import numpy as np
+
+std = input_variance**0.5
+diff = input_x - input_mean
+
+a = 1/(np.sqrt(2*(np.pi)*std))
+b = np.exp(-((diff ** 2)/(2*std*std)))
+x = a*b
+
+print (f"")
+print (f"==========OUTPUT==========")
+print (x)
+
+from scipy.stats import norm
+cdf = (norm.cdf(input_x, input_mean, std))
+print (f"Your CDF value is: {cdf}")
+
+# Create some test data
+
+dx = float(input("Value of alpha: "))
+K = float(input("Value of K: "))
+a = int(input("Value of a: "))
+
+A = np.arange(a, K+dx, dx)
+
+diff2 = (A - input_mean) ** 2
+a2 = 1/(np.sqrt(2*(np.pi)*(std ** 2)))
+b2 = np.exp(-((diff2 ** 2)/(2*std*std)))
+x2 = dx * sum(a2*b2)
+
+print (x2)
